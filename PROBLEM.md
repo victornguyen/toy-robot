@@ -39,6 +39,10 @@ Create an application that can read in commands of the following form:
 - Input can be from a file, or from standard input, as the developer chooses.
 - Provide test data to exercise the application.
 
+/\d+,\d+,[A-Z,a-z]+/
+^\d+,\d+,(NORTH|SOUTH|EAST|WEST)+$
+^(?:PLACE)\s\d+,\d+,(NORTH|SOUTH|EAST|WEST)+$
+
 Constraints
 -----------
 
