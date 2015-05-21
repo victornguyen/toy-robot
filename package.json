@@ -11,6 +11,8 @@
     "gulp": "~3.8.11",
     "gulp-util": "~3.0.4",
     "watchify": "~3.2.1",
-    "browserify": "~10.2.1"
+    "browserify": "~10.2.1",
+    "chai": "~2.3.0",
+    "gulp-mocha": "~2.0.1"
   }
 }
