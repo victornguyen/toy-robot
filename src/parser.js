@@ -13,6 +13,8 @@ module.exports = {
  
     getValidCommands: function(commands) {
         // parses command array and returns new array of only valid commands for robot to execute
+        // invalid commands are different to ignored commands (which are still executed, but no
+        // action is taken as it would result in the robot falling off)
     },
  
     getFirstPlaceIndex: function(commands) {
