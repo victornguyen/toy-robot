@@ -51,10 +51,16 @@ module.exports = {
         };
     },
 
-    isInRange: function(placeData, boardSize) {
-        // placeData = getPlaceData()
-        // boardSize = { x:5, y:5 }
-        // returns true if placeData fits in boardSize
+    isInRange: function(placeCommand, tableSize) {
+        // tableSize = { x:5, y:5 }
+        // returns true if placeData fits in tableSize
+        var data = this.getPlaceData(placeCommand);
+
+        if (data === null) {
+            return false;
+        }
+
+        return (data.x <= tableSize.x) && (data.y <= tableSize.y);
     }
 
 };
