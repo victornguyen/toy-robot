@@ -17,6 +17,7 @@ module.exports = {
 
     getCommandsFromInput: function(input) {
         // parse textarea input and return array of commands
+        return input === '' ? [] : input.split(/\n/);
     },
 
     getValidCommands: function(commands) {
