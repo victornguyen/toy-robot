@@ -26,11 +26,11 @@ module.exports = {
         // action is taken as it would result in the robot falling off)
     },
 
-    getFirstPlaceIndex: function(commands) {
+    getFirstPlaceIndex: function(commands, tableSize) {
         // returns the index of the first valid PLACE command given an array of commands
         var index = -1;
         for (var i = 0; i < commands.length; i++) {
-            if ( this.isValidPlaceCommand( commands[i] ) ) {
+            if ( this.isValidPlaceCommand( commands[i], tableSize ) ) {
                 index = i;
                 break;
             }
@@ -43,9 +43,13 @@ module.exports = {
         return COMMAND_FORMATS.REGULAR.exec(command) !== null;
     },
 
-    isValidPlaceCommand: function(command) {
+    isValidPlaceCommand: function(command, tableSize) {
         // returns bool indicating whether command is a valid PLACE command
-        return COMMAND_FORMATS.PLACE.exec(command) !== null;
+        // validity depends on both format and whether it is in range
+        var isPlaceFormat = COMMAND_FORMATS.PLACE.exec(command) !== null,
+            isInRange     = this.isInRange(command, tableSize);
+
+        return isPlaceFormat && isInRange;
     },
 
     getPlaceData: function(placeCommand) {
