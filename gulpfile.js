@@ -10,16 +10,23 @@ var sourcemaps  = require('gulp-sourcemaps');
 var gutil       = require('gulp-util');
 var mocha       = require('gulp-mocha');
 
+// file paths
+var paths = {
+    entry: './src/index.js',
+    src:   './src/**/*.js',
+    tests: './test/**/*.js',
+    dist:  './dist/'
+};
+
 // setup watchify, browserify
 var b = watchify(
     browserify({
-        entries: './src/index.js',
+        entries: paths.entry,
         debug: true
     })
 );
 b.on('update', bundle);
-b.on('update', runTests);
-b.on('log', gutil.log); 
+b.on('log', gutil.log);
 
 
 function bundle() {
@@ -31,15 +38,18 @@ function bundle() {
         // Add transformation tasks to the pipeline here.
         .pipe(uglify())
         .pipe(sourcemaps.write('./'))
-        .pipe(gulp.dest('./dist/'));
+        .pipe(gulp.dest(paths.dist));
 }
 
 
 function runTests() {
-    return gulp.src('test/*.js', { read:false })
+    return gulp.src(paths.tests, { read:false })
         .pipe( mocha({ reporter: 'spec' }) );
 }
 
 // gulp tasks
 gulp.task('js', bundle);
 gulp.task('test', runTests);
+gulp.task('tdd', function() {
+    gulp.watch([paths.tests, paths.src], ['test'])
+});
