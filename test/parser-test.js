@@ -8,54 +8,70 @@ var parser = require('../src/parser');
 
 describe('parser', function(){
 
-    describe('getCommandsFromInput()', function() {
+    describe('getCommands()', function() {
+        var input = [
+            'MOVE',
+            'PLACE 0,0,DOWN',
+            'PLACE 1,1,WEST',   // valid
+            'MOVE',             // valid
+            'LEFT',             // valid
+            'MICHAELANGELO',    // invalid
+            'MOVE',             // valid
+            'MOVE'              // valid, ignored
+        ].join('\n');
+
+        var tableSize = { x:5, y:5 },
+            commands  = parser.getCommands(input, tableSize);
+
         it('should return an array of the correct length', function(){
-            var input = 'MOVE\nLEFT\nLEFT\nPLACE 0,6,NORTH\nPLACE 0,0,WEST\nMOVE\nRIGHT\nMOVE';
-            expect( parser.getCommandsFromInput(input) )
+            expect( commands )
                 .to.be.an('array')
-                .with.length(8);
+                .with.length(5);
         });
 
-        it('should return an empty array when given no input', function(){
-            expect( parser.getCommandsFromInput('') )
+        it('should return an array, but not include an invalid "PLACE 0,0,DOWN" command', function(){
+            expect( commands )
+                .to.be.an('array')
+                .and.to.not.include('PLACE 0,0,DOWN');
+        });
+
+        it('should return an array, but not include an invalid "MICHAELANGELO" command', function(){
+            expect( commands )
+                .to.be.an('array')
+                .and.to.not.include('MICHAELANGELO');
+        });
+
+        it('should return an array with a valid "PLACE 1,1,WEST" command', function(){
+            expect( commands ).to.include('PLACE 1,1,WEST');
+        });
+
+        it('should return an empty array when there is no PLACE command', function () {
+            var input = ['MOVE','REPORT','LEFT'].join('\n');
+            expect( parser.getCommands(input, tableSize) )
+                .to.be.an('array')
+                .and.to.be.empty;
+        });
+
+        it('should return an empty array the only PLACE command is out-of-range', function () {
+            var input = ['MOVE','PLACE 13,37,WEST','LEFT'].join('\n');
+            expect( parser.getCommands(input, tableSize) )
                 .to.be.an('array')
                 .and.to.be.empty;
         });
     });
 
-    describe('getValidCommands()', function() {
-        var commands = [
-            'MOVE',
-            'PLACE 0,0,DOWN',
-            'PLACE 1,1,WEST', // valid
-            'MOVE', // valid
-            'LEFT', // valid
-            'MICHAELANGELO', // invalid
-            'MOVE', // valid
-            'MOVE' // valid, ignored
-        ];
-        var validCommands = parser.getValidCommands(commands);
-
+    describe('inputToArray()', function() {
         it('should return an array of the correct length', function(){
-            expect( validCommands )
+            var input = 'MOVE\nLEFT\nLEFT\nPLACE 0,6,NORTH\nPLACE 0,0,WEST\nMOVE\nRIGHT\nMOVE';
+            expect( parser.inputToArray(input) )
                 .to.be.an('array')
-                .with.length(5);
+                .with.length(8);
         });
 
-        it('shouldn\'t include the invalid "PLACE 0,0,DOWN" command', function(){
-            expect( validCommands )
+        it('should return an empty array when given no input', function(){
+            expect( parser.inputToArray('') )
                 .to.be.an('array')
-                .and.to.not.include('PLACE 0,0,DOWN');
-        });
-
-        it('shouldn\'t include the invalid "MICHAELANGELO" command', function(){
-            expect( validCommands )
-                .to.be.an('array')
-                .and.to.not.include('MICHAELANGELO');
-        });
-
-        it('should includes the valid "PLACE 1,1,WEST" command', function(){
-            expect( validCommands ).to.include('PLACE 1,1,WEST');
+                .and.to.be.empty;
         });
     });
 

@@ -15,15 +15,15 @@ var COMMAND_FORMATS = {
 
 module.exports = {
 
-    getCommandsFromInput: function(input) {
-        // parse textarea input and return array of commands
-        return input === '' ? [] : input.split(/\n/);
+    getCommands: function(input) {
+        // parses a string input and returns an array of commands for the robot to execute.
+        // invalid commands are different to ignored commands (which are still executed, but no
+        // action is taken as it would result in the robot falling off).
     },
 
-    getValidCommands: function(commands) {
-        // parses command array and returns new array of only valid commands for robot to execute
-        // invalid commands are different to ignored commands (which are still executed, but no
-        // action is taken as it would result in the robot falling off)
+    inputToArray: function(input) {
+        // parse textarea input and return array of commands
+        return input === '' ? [] : input.split(/\n/);
     },
 
     getFirstPlaceIndex: function(commands, tableSize) {
