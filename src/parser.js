@@ -15,10 +15,39 @@ var COMMAND_FORMATS = {
 
 module.exports = {
 
-    getCommands: function(input) {
+    getCommands: function(input, tableSize) {
         // parses a string input and returns an array of commands for the robot to execute.
         // invalid commands are different to ignored commands (which are still executed, but no
         // action is taken as it would result in the robot falling off).
+
+        var commands      = this.inputToArray(input),
+            startIndex    = this.getFirstPlaceIndex(commands, tableSize),
+            validCommands = [],
+            _this         = this;
+
+        function _includeInValidCommands(command) {
+            return (
+                _this.isValidCommand(commands[i]) ||
+                _this.isValidPlaceCommand(commands[i], tableSize)
+            );
+        };
+
+        // return empty array if there are no commands to process
+        if (startIndex < 0) {
+            return [];
+        }
+
+        // take copy of array starting at first valid PLACE command
+        commands = commands.slice(startIndex);
+
+        // compose valid commands to return
+        for (var i = 0; i < commands.length; i++) {
+            if ( _includeInValidCommands(commands[i]) ) {
+                validCommands.push(commands[i]);
+            }
+        };
+
+        return validCommands;
     },
 
     inputToArray: function(input) {
