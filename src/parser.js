@@ -42,10 +42,12 @@ module.exports = {
 
     getPlaceData: function(placeCommand) {
         // return deserialised place data from placeCommand string
-        return {
-            x: 0,
-            y: 0,
-            f: 'NORTH'
+        var matches = COMMAND_FORMATS.PLACE.exec(placeCommand);
+
+        return matches === null ? null : {
+            x: parseInt( matches[1], 10 ),
+            y: parseInt( matches[2], 10 ),
+            f: matches[3]
         };
     },
 
