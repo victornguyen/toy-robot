@@ -28,6 +28,14 @@ module.exports = {
 
     getFirstPlaceIndex: function(commands) {
         // returns the index of the first valid PLACE command given an array of commands
+        var index = -1;
+        for (var i = 0; i < commands.length; i++) {
+            if ( this.isValidPlaceCommand( commands[i] ) ) {
+                index = i;
+                break;
+            }
+        };
+        return index;
     },
 
     isValidCommand: function(command) {
