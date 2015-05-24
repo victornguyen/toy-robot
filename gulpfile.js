@@ -38,7 +38,7 @@ gulp.task('bundle-app', function() {
         .pipe(gulp.dest(paths.dist));
 });
 
-gulp.task('dist-html', function() {
+gulp.task('build-html', function() {
     return gulp.src(paths.html)
         .pipe(gulp.dest(paths.dist));
 });
@@ -54,7 +54,7 @@ gulp.task('serve', function() {
 gulp.task('dev', ['serve'], function() {
     gulp.watch(
         [paths.src, paths.tests, paths.html],
-        ['test', 'bundle-app', 'dist-html', reload]
+        ['test', 'bundle-app', 'build-html', reload]
     );
 });
 
@@ -63,7 +63,7 @@ gulp.task('test', function() {
         .pipe( mocha({ reporter: 'spec' }) );
 });
 
-gulp.task('dist-tests', function() {
+gulp.task('build-tests', function() {
     // copy mocha html runner
     gulp.src('./test/runner/*')
         .pipe(gulp.dest(paths.dist + 'test/'));
@@ -86,13 +86,13 @@ gulp.task('clean', function() {
         .pipe(clean());
 });
 
-gulp.task('dist-app', ['dist-html', 'bundle-app']);
+gulp.task('build-app', ['build-html', 'bundle-app']);
 
-gulp.task('dist', ['clean'], function() {
-    gulp.start(['dist-app', 'dist-tests']);
+gulp.task('build', ['clean'], function() {
+    gulp.start(['build-app', 'build-tests']);
 });
 
-gulp.task('deploy', function() {
+gulp.task('deploy', ['build'], function() {
     return gulp.src('./dist/**/*')
       .pipe(deploy());
 });
