@@ -4,7 +4,8 @@ var chai   = require('chai'),
     assert = chai.assert,
     expect = chai.expect;
 
-var Simulation = require('../../src/scripts/simulation');
+var Simulation  = require('../../src/scripts/simulation'),
+    exampleData = require('../../src/scripts/example');
 
 
 describe('Simulation', function () {
@@ -17,39 +18,21 @@ describe('Simulation', function () {
 
     describe('process()', function () {
         it('should return the expected output given input from "Example a"', function () {
-            var input = [
-                'PLACE 0,0,NORTH',
-                'MOVE',
-                'REPORT'
-            ].join('\n');
-            simulation.process(input)
-
-            expect( simulation.report() ).to.deep.equal('0,1,NORTH');
+            simulation.process(exampleData.a.input)
+            expect( simulation.getOutput() )
+                .to.equal( exampleData.a.expected_output );
         });
 
         it('should return the expected output given input from "Example b"', function () {
-            var input = [
-                'PLACE 0,0,NORTH',
-                'LEFT',
-                'REPORT'
-            ].join('\n');
-            simulation.process(input)
-
-            expect( simulation.report() ).to.deep.equal('0,0,WEST');
+            simulation.process(exampleData.b.input)
+            expect( simulation.getOutput() )
+                .to.equal( exampleData.b.expected_output );
         });
 
         it('should return the expected output given input from "Example c"', function () {
-            var input = [
-                'PLACE 1,2,EAST',
-                'MOVE',
-                'MOVE',
-                'LEFT',
-                'MOVE',
-                'REPORT'
-            ].join('\n');
-            simulation.process(input)
-
-            expect( simulation.report() ).to.deep.equal('3,3,NORTH');
+            simulation.process(exampleData.c.input)
+            expect( simulation.getOutput() )
+                .to.equal( exampleData.c.expected_output );
         });
     });
 

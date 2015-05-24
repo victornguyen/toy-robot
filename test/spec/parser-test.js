@@ -6,7 +6,7 @@ var chai   = require('chai'),
 
 var parser = require('../../src/scripts/parser');
 
-describe('parser', function(){
+describe('Parser', function(){
 
     describe('getCommands()', function() {
         var input = [
