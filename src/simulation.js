@@ -20,6 +20,13 @@ function Simulation(size) {
 
         process: function(input) {
             // parses raw command input and performs commands
+            var commands = parser.getCommands(input, size),
+                method   = '';
+
+            for (var i = 0; i < commands.length; i++) {
+                method = commands[i].split(' ')[0].toLowerCase();
+                this[method](commands[i]); // command names map to method names
+            };
         },
 
         place: function(command) {
