@@ -6,9 +6,8 @@ var Simulation   = require('./simulation'),
     exampleData  = require('./example');
 
 
-var simulation = new Simulation({ x:5, y:5 });
-
-var textarea     = document.getElementById('commands'),
+var simulation   = new Simulation({ x:5, y:5 }),
+    textarea     = document.getElementById('commands'),
     button       = document.getElementById('process'),
     output       = document.getElementById('output'),
     example_btns = document.querySelectorAll('.example');
