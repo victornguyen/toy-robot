@@ -31,17 +31,21 @@ function Simulation(size) {
         },
 
         left: function() {
-            var i           = this.getCompassIndex(position.f),
-                newIndex    = (i - 1 < 0) ? COMPASS.length - 1 : i - 1;
+            var index = this.getCompassIndex(position.f) - 1;
 
-            position.f = COMPASS[newIndex];
+            if (index < 0) {
+                index = COMPASS.length - 1;
+            }
+            position.f = COMPASS[index];
         },
 
         right: function() {
-            var i           = this.getCompassIndex(position.f),
-                newIndex    = (i + 1 >= COMPASS.length) ? 0 : i + 1;
+            var index = this.getCompassIndex(position.f) + 1;
 
-            position.f = COMPASS[newIndex];
+            if (index >= COMPASS.length) {
+                index = 0;
+            }
+            position.f = COMPASS[index];
         },
 
         report: function() {
