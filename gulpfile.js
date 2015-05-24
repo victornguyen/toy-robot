@@ -10,7 +10,8 @@ var gutil       = require('gulp-util');
 var mocha       = require('gulp-mocha');
 var clean       = require('gulp-clean');
 var browserSync = require('browser-sync');
-var reload      = browserSync.reload;
+var reload      = browserSync.reload,
+var deploy      = require('gulp-deploy');
 
 // file paths
 var paths = {
@@ -37,7 +38,7 @@ gulp.task('bundle-app', function() {
         .pipe(gulp.dest(paths.dist));
 });
 
-gulp.task('deploy-html', function() {
+gulp.task('dist-html', function() {
     return gulp.src(paths.html)
         .pipe(gulp.dest(paths.dist));
 });
@@ -53,7 +54,7 @@ gulp.task('serve', function() {
 gulp.task('dev', ['serve'], function() {
     gulp.watch(
         [paths.src, paths.tests, paths.html],
-        ['test', 'bundle-app', 'deploy-html', reload]
+        ['test', 'bundle-app', 'dist-html', reload]
     );
 });
 
@@ -62,7 +63,7 @@ gulp.task('test', function() {
         .pipe( mocha({ reporter: 'spec' }) );
 });
 
-gulp.task('deploy-tests', function() {
+gulp.task('dist-tests', function() {
     // copy mocha html runner
     gulp.src('./test/runner/*')
         .pipe(gulp.dest(paths.dist + 'test/'));
@@ -85,8 +86,13 @@ gulp.task('clean', function() {
         .pipe(clean());
 });
 
-gulp.task('deploy-app', ['deploy-html', 'bundle-app']);
+gulp.task('dist-app', ['dist-html', 'bundle-app']);
 
 gulp.task('dist', ['clean'], function() {
-    gulp.start(['deploy-app', 'deploy-tests']);
+    gulp.start(['dist-app', 'dist-tests']);
+});
+
+gulp.task('deploy', function() {
+    return gulp.src(paths.dist)
+      .pipe(deploy());
 });
