@@ -4,7 +4,7 @@ var chai   = require('chai'),
     assert = chai.assert,
     expect = chai.expect;
 
-var Simulation = require('../src/simulation');
+var Simulation = require('../../src/scripts/simulation');
 
 
 describe('Simulation', function () {

@@ -4,7 +4,7 @@ var chai   = require('chai'),
     assert = chai.assert,
     expect = chai.expect;
 
-var parser = require('../src/parser');
+var parser = require('../../src/scripts/parser');
 
 describe('parser', function(){
 
