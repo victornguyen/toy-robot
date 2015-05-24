@@ -53,6 +53,21 @@ describe('Simulation', function () {
         });
     });
 
+    describe('reset()', function () {
+        beforeEach(function () {
+            simulation.process('PLACE 3,3,NORTH');
+            simulation.reset();
+        });
+
+        it('should reset the position', function () {
+            expect( simulation.getPosition() ).to.equal(null);
+        });
+
+        it('should reset the output', function () {
+            expect( simulation.getOutput() ).to.equal('');
+        });
+    });
+
     describe('place()', function () {
         it('should set the correct position value after a PLACE', function () {
             simulation.place('PLACE 1,1,NORTH');

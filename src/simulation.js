@@ -24,10 +24,17 @@ function Simulation(size) {
             var commands = parser.getCommands(input, size),
                 method   = '';
 
+            this.reset();
+
             for (var i = 0; i < commands.length; i++) {
                 method = commands[i].split(' ')[0].toLowerCase();
                 this[method](commands[i]); // command names map to method names
             };
+        },
+
+        reset: function() {
+            position = null;
+            output = [];
         },
 
         place: function(command) {
