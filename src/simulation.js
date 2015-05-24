@@ -27,7 +27,28 @@ function Simulation(size) {
         },
 
         move: function() {
-
+            switch (position.f) {
+                case 'NORTH':
+                    if (position.y < size.y) {
+                        position.y++;
+                    }
+                    break;
+                case 'SOUTH':
+                    if (position.y > 0) {
+                        position.y--;
+                    }
+                    break;
+                case 'EAST':
+                    if (position.x < size.x) {
+                        position.x++;
+                    }
+                    break;
+                case 'WEST':
+                    if (position.x > 0) {
+                        position.x--;
+                    }
+                    break;
+            }
         },
 
         left: function() {
