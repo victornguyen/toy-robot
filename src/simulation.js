@@ -19,8 +19,8 @@ function Simulation(size) {
             // parses raw command input and performs commands
         },
 
-        place: function() {
-
+        place: function(command) {
+            position = parser.getPlaceData(command);
         },
 
         move: function() {
@@ -37,6 +37,10 @@ function Simulation(size) {
 
         report: function() {
 
+        },
+
+        getPosition: function() {
+            return position;
         }
 
     };
