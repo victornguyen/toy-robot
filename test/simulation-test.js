@@ -212,5 +212,27 @@ describe('Simulation', function () {
         });
     });
 
+    describe('getOutput()', function () {
+        it('should return the correct output with one REPORT command', function () {
+            var input = [
+                'PLACE 1,1,NORTH',
+                'REPORT'
+            ].join('\n');
+            simulation.process(input);
+            expect( simulation.getOutput() ).to.equal('1,1,NORTH');
+        });
+
+        it('should return the correct output with multiple REPORT commands', function () {
+            var input = [
+                'PLACE 1,1,NORTH',
+                'REPORT',
+                'PLACE 2,2,NORTH',
+                'REPORT'
+            ].join('\n');
+            simulation.process(input);
+            expect( simulation.getOutput() ).to.equal('1,1,NORTH\n2,2,NORTH');
+        });
+    });
+
 });
 

@@ -7,7 +7,8 @@ var parser = require('./parser');
 
 function Simulation(size) {
     var size        = size || { x:5, y:5 },
-        position    = null;
+        position    = null,
+        output      = [];
 
     var COMPASS = [
         'NORTH',
@@ -77,19 +78,21 @@ function Simulation(size) {
         },
 
         report: function() {
-            var output;
+            var report;
             if (position === null) {
-                output = ''
+                report = ''
             }
             else {
-                output = [
+                report = [
                     position.x.toString(),
                     position.y.toString(),
                     position.f
                 ].join(',');
             }
 
-            return output;
+            output.push(report);
+
+            return report;
         },
 
         getPosition: function() {
@@ -106,6 +109,10 @@ function Simulation(size) {
                 }
             }
             return index;
+        },
+
+        getOutput: function() {
+            return output.join('\n');
         }
 
     };

@@ -13,7 +13,7 @@ var textarea   = document.getElementById('commands'),
 
 function doThemCommands() {
     simulation.process(textarea.value);
-    output.textContent = simulation.report();
+    output.textContent = simulation.getOutput();
 }
 
 button.addEventListener('click', doThemCommands);
