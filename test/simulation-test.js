@@ -112,6 +112,11 @@ describe('Simulation', function () {
             simulation.place('PLACE 1,1,NORTH');
             expect( simulation.report() ).to.equal('1,1,NORTH');
         });
+
+        it('should return an empty string when no commands have been executed', function () {
+            simulation.place('');
+            expect( simulation.report() ).to.equal('');
+        });
     });
 
 });

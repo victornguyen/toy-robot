@@ -7,11 +7,7 @@ var parser = require('./parser');
 
 function Simulation(size) {
     var size        = size || { x:5, y:5 },
-        position    = {
-            x: null,
-            y: null,
-            f: null
-        };
+        position    = null;
 
     return {
 
@@ -36,7 +32,19 @@ function Simulation(size) {
         },
 
         report: function() {
+            var output;
+            if (position === null) {
+                output = ''
+            }
+            else {
+                output = [
+                    position.x.toString(),
+                    position.y.toString(),
+                    position.f
+                ].join(',');
+            }
 
+            return output;
         },
 
         getPosition: function() {
