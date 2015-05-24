@@ -9,6 +9,13 @@ function Simulation(size) {
     var size        = size || { x:5, y:5 },
         position    = null;
 
+    var COMPASS = [
+        'NORTH',
+        'EAST',
+        'SOUTH',
+        'WEST'
+    ];
+
     return {
 
         process: function(input) {
@@ -24,11 +31,17 @@ function Simulation(size) {
         },
 
         left: function() {
+            var i           = this.getCompassIndex(position.f),
+                newIndex    = (i - 1 < 0) ? COMPASS.length - 1 : i - 1;
 
+            position.f = COMPASS[newIndex];
         },
 
         right: function() {
+            var i           = this.getCompassIndex(position.f),
+                newIndex    = (i + 1 >= COMPASS.length) ? 0 : i + 1;
 
+            position.f = COMPASS[newIndex];
         },
 
         report: function() {
@@ -49,6 +62,18 @@ function Simulation(size) {
 
         getPosition: function() {
             return position;
+        },
+
+        getCompassIndex: function(f) {
+            var index,
+                i = COMPASS.length;
+
+            while (i--) {
+                if (COMPASS[i] === f) {
+                    index = i;
+                }
+            }
+            return index;
         }
 
     };

@@ -16,6 +16,7 @@ describe('Simulation', function () {
     });
 
     describe('process()', function () {
+
     });
 
     describe('place()', function () {
@@ -116,6 +117,24 @@ describe('Simulation', function () {
         it('should return an empty string when no commands have been executed', function () {
             simulation.place('');
             expect( simulation.report() ).to.equal('');
+        });
+    });
+
+    describe('getCompassIndex()', function () {
+        it('should return return the correct index for NORTH', function () {
+            expect( simulation.getCompassIndex('NORTH') ).to.equal(0);
+        });
+
+        it('should return return the correct index for EAST', function () {
+            expect( simulation.getCompassIndex('EAST') ).to.equal(1);
+        });
+
+        it('should return return the correct index for SOUTH', function () {
+            expect( simulation.getCompassIndex('SOUTH') ).to.equal(2);
+        });
+
+        it('should return return the correct index for WEST', function () {
+            expect( simulation.getCompassIndex('WEST') ).to.equal(3);
         });
     });
 
