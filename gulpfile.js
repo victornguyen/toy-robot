@@ -9,11 +9,14 @@ var uglify      = require('gulp-uglify');
 var sourcemaps  = require('gulp-sourcemaps');
 var gutil       = require('gulp-util');
 var mocha       = require('gulp-mocha');
+var browserSync = require('browser-sync');
+var reload      = browserSync.reload;
 
 // file paths
 var paths = {
     entry: './src/index.js',
     src:   './src/**/*.js',
+    html:  './src/**/*.html',
     tests: './test/**/*.js',
     dist:  './dist/'
 };
@@ -50,6 +53,20 @@ function runTests() {
 // gulp tasks
 gulp.task('js', bundle);
 gulp.task('test', runTests);
-gulp.task('tdd', function() {
-    gulp.watch([paths.tests, paths.src], ['test'])
+gulp.task('html-copy', function() {
+    return gulp.src(paths.html)
+        .pipe(gulp.dest(paths.dist));
 });
+
+gulp.task('dev', function() {
+    browserSync({
+        server: {
+            baseDir: 'dist'
+        }
+    });
+    gulp.watch(
+        [paths.src, paths.tests, paths.html],
+        ['test', 'js', 'html-copy', reload]
+    );
+});
+
