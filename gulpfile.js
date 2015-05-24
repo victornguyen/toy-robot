@@ -10,8 +10,8 @@ var gutil       = require('gulp-util');
 var mocha       = require('gulp-mocha');
 var clean       = require('gulp-clean');
 var browserSync = require('browser-sync');
-var reload      = browserSync.reload,
-var deploy      = require('gulp-deploy');
+var reload      = browserSync.reload;
+var deploy      = require('gulp-gh-pages');
 
 // file paths
 var paths = {
