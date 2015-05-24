@@ -93,6 +93,6 @@ gulp.task('dist', ['clean'], function() {
 });
 
 gulp.task('deploy', function() {
-    return gulp.src(paths.dist)
+    return gulp.src('./dist/**/*')
       .pipe(deploy());
 });
