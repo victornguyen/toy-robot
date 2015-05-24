@@ -69,22 +69,62 @@ describe('Simulation', function () {
             simulation.place('PLACE 0,0,NORTH');
             simulation.move();
             expect( simulation.report() ).to.equal('0,1,NORTH');
+
+            simulation.place('PLACE 0,4,NORTH');
+            simulation.move();
+            expect( simulation.report() ).to.equal('0,5,NORTH');
         });
 
         it('should move to the correct position facing EAST', function () {
             simulation.place('PLACE 0,0,EAST');
             simulation.move()
             expect( simulation.report() ).to.equal('1,0,EAST');
+
+            simulation.place('PLACE 4,0,EAST');
+            simulation.move()
+            expect( simulation.report() ).to.equal('5,0,EAST');
         });
 
         it('should move to the correct position facing SOUTH', function () {
             simulation.place('PLACE 0,1,SOUTH');
             simulation.move()
             expect( simulation.report() ).to.equal('0,0,SOUTH');
+
+            simulation.place('PLACE 0,1,SOUTH');
+            simulation.move();
+            expect( simulation.report() ).to.equal('0,0,SOUTH');
         });
 
         it('should move to the correct position facing WEST', function () {
             simulation.place('PLACE 1,0,WEST');
+            simulation.move()
+            expect( simulation.report() ).to.equal('0,0,WEST');
+
+            simulation.place('PLACE 1,0,WEST');
+            simulation.move()
+            expect( simulation.report() ).to.equal('0,0,WEST');
+        });
+
+        it('should not move when facing NORTH with no room', function () {
+            simulation.place('PLACE 0,5,NORTH');
+            simulation.move()
+            expect( simulation.report() ).to.equal('0,5,NORTH');
+        });
+
+        it('should not move when facing EAST with no room', function () {
+            simulation.place('PLACE 5,0,EAST');
+            simulation.move()
+            expect( simulation.report() ).to.equal('5,0,EAST');
+        });
+
+        it('should not move when facing SOUTH with no room', function () {
+            simulation.place('PLACE 0,0,SOUTH');
+            simulation.move()
+            expect( simulation.report() ).to.equal('0,0,SOUTH');
+        });
+
+        it('should not move when facing WEST with no room', function () {
+            simulation.place('PLACE 0,0,WEST');
             simulation.move()
             expect( simulation.report() ).to.equal('0,0,WEST');
         });
