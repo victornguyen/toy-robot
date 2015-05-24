@@ -1,0 +1,14 @@
+{
+    "a": {
+        "input": "PLACE 0,0,NORTH\nMOVE\nREPORT",
+        "expected_output": "0,1,NORTH"
+    },
+    "b": {
+        "input": "PLACE 0,0,NORTH\nLEFT\nREPORT",
+        "expected_output": "0,0,WEST"
+    },
+    "c": {
+        "input": "PLACE 1,2,EAST\nMOVE\nMOVE\nLEFT\nMOVE\nREPORT",
+        "expected_output": "3,3,NORTH"
+    }
+}
