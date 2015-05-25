@@ -53,4 +53,4 @@ The tests were written with [Mocha] and [Chai], using the somewhat wordy, but fu
 [tests]: http://victornguyen.github.io/toy-robot/test
 [Mocha]: http://mochajs.org/
 [Chai]: http://chaijs.com/
-[Browserify]: http://chaijs.com/
+[Browserify]: http://browserify.org/
